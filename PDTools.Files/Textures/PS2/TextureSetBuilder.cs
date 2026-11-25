@@ -24,8 +24,9 @@ using PDTools.Utils;
 using PDTools.Files.Textures.PS2.GSPixelFormats;
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Toolkit.HighPerformance;
+using CommunityToolkit.HighPerformance;
 using System.Diagnostics.CodeAnalysis;
+using Rectangle = SixLabors.ImageSharp.Rectangle;
 
 namespace PDTools.Files.Textures.PS2;
 
@@ -157,7 +158,8 @@ public class TextureSetBuilder
                 ImageFrame<Rgba32> frame = img.Frames.RootFrame;
 
                 using IQuantizer<Rgba32> frameQuantizer = quantizer.CreatePixelSpecificQuantizer<Rgba32>(Configuration.Default);
-                using IndexedImageFrame<Rgba32> result = frameQuantizer.BuildPaletteAndQuantizeFrame(frame, frame.Bounds());
+				Rectangle bounds = new Rectangle(0, 0, frame.Width, frame.Height);
+				using IndexedImageFrame<Rgba32> result = frameQuantizer.BuildPaletteAndQuantizeFrame(frame, bounds);
 
                 // Copy the result (access to imagesharp's indexedimage buffer is not possible)
                 Memory2D<byte> mem2d = new(textureTask.IndexedImage);

@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 using Pfim;
+using Pfim;
 
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
@@ -384,7 +385,7 @@ public class PGLUCellTextureInfo : PGLUTextureInfo
         header.Write(outStream);
     }
 
-    public void InitFromDDSImage(IImage image, CELL_GCM_TEXTURE_FORMAT format)
+    public void InitFromDDSImage(Pfim.IImage image, CELL_GCM_TEXTURE_FORMAT format)
     {
         FormatBits = format;
         Width = (ushort)image.Width;
